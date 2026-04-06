@@ -990,13 +990,8 @@ void FRenderer::renderJob(DriverApi& driver, RootArenaScope& rootArenaScope, FVi
     //        to inconsistent colors depending on enabled features. When the clear is performed
     //        into a temporary buffer (common case), the clearColor is color-graded. A problem
     //        arises when transparent views are used, in this case the clear color is not
-    //        color-graded. Additionally, due to GPU preferred format selection, there is no
-    //        guarantee that the resulting buffer will lack an alpha channel, even if the user
-    //        requested a non-alpha surface. Therefore, we enforce correctness by setting the
-    //        alpha channel to fully opaque.
-    const float4 clearColor = !needsAlphaChannel
-                                  ? float4(mClearOptions.clearColor.rgb, 1.0f)
-                                  : mClearOptions.clearColor;
+    //        color-graded.
+    const float4 clearColor = mClearOptions.clearColor;
 
     const uint8_t clearStencil = mClearOptions.clearStencil;
     const TargetBufferFlags clearFlags = mClearFlags;
